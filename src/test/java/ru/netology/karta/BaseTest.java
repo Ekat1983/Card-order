@@ -14,23 +14,23 @@ public class BaseTest {
     private WebDriver driver;
 
     @BeforeAll
-    static void SetUpAll() {
+    static void setUpAll() {
         WebDriverManager.chromedriver().setup();
     }
 
     @Test
-    void Test() {
+    void test() {
         driver.get("http://localhost:9999");
-        driver.findElement(By.cssSelector("span[data-test-id='name'] input")).sendKeys("Иванова Мария");
+        driver.findElement(By.cssSelector("span[data-test-id='name'] input")).sendKeys("Иванова-Петрова Анна-Мария");
         driver.findElement(By.cssSelector("span[data-test-id='phone'] input")).sendKeys("+79914567890");
-        driver.findElement(By.className("checkbox__box")).click();
+        driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.className("button_view_extra")).click();
-        String text = driver.findElement(By.className("paragraph")).getText();
+        String text = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText();
         assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
     }
 
     @BeforeEach
-    void SetUp() {
+    void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
